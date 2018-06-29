@@ -5,12 +5,47 @@
     </button>
     <ion-title>Home</ion-title>
   </ion-navbar>
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="sn1">
+      <ion-segment-button value="page1">
+        หน้าที่ 1
+      </ion-segment-button>
+      <ion-segment-button value="page2" >
+        หน้าที่ 2
+      </ion-segment-button>
+      <ion-segment-button value="page3" >
+        หน้าที่ 3
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col col-11>
+        <div  [ngSwitch]="sn1">
+          
+            <ion-list *ngSwitchCase="'page1'">
+              <sn1-sec1></sn1-sec1>
+            </ion-list>
+         
+          
+            <ion-list *ngSwitchCase="'page2'">
+              <sn1-sec2></sn1-sec2>
+            </ion-list>
+          
+         
+            <ion-list *ngSwitchCase="'page3'">
+              <sn1-sec3></sn1-sec3>
+            </ion-list>
+         
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   
 </ion-content>
