@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Events } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the Sn1Sec1Component component.
@@ -14,15 +15,43 @@ import { Events } from 'ionic-angular';
 export class Sn1Sec1Component {
 
   text: string;
+  lat: any;
+  lon: any;
+  wathId: any;
+  message: any;
 
-  constructor(private events : Events) {
+  constructor(private events : Events, public geo: Geolocation) {
     console.log('Hello Sn1Sec1Component Component');
     this.text = 'Hello World';
+    this.message = "-";
+    this.lon = "-";
+    this.lat = "-";
   }
 
   submit(){
     this.events.publish("sec1Submitted");
 
+  }
+  loadMap()
+  {
+    let geoOption = {enableHighAccuracy : true};
+    try
+    {
+      this.wathId = this.geo.getCurrentPosition(geoOption).then(resp => 
+      {
+        this.lat = resp.coords.latitude;
+        this.lon = resp.coords.longitude;
+      },
+      error =>
+      {
+        this.message = "GPS error" + error; 
+      }
+    )
+    }catch(err)
+    {
+      alert("Error" + err);
+      this.message = "Error" + err;
+    }
   }
 
 }
